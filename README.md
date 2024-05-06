@@ -25,3 +25,7 @@ git clone https://github.com/tomer953/ng-stats.git
 cd ng-stats
 npm install
 ```
+
+### Demo
+
+![image](https://github.com/tomer953/ng-stats/assets/1807493/04518537-9560-4c3b-ae6f-d5a7de42b8de)
