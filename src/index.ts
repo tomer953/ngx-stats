@@ -35,7 +35,9 @@ function countAngularFeatures(
     const filePath = path.join(dirPath, file);
     const stats = fs.statSync(filePath);
     if (stats.isDirectory()) {
-      countAngularFeatures(filePath, result);
+      if (file !== "node_modules") {
+        countAngularFeatures(filePath, result);
+      }
     } else if (filesToCheck.includes(path.extname(file))) {
       const content = fs.readFileSync(filePath, "utf8");
       // Components
