@@ -1,0 +1,21 @@
+{
+  "name": "ng-stats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "keywords": ["angular"],
+  "author": "tomer953",
+  "license": "MIT",
+  "dependencies": {
+    "cli-table3": "^0.6.4",
+    "figlet": "^1.7.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/node": "^20.12.10",
+    "typescript": "^5.4.5"
+  }
+}
