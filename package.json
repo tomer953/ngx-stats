@@ -1,7 +1,7 @@
 {
   "name": "ng-stats",
   "version": "1.0.0",
-  "description": "",
+  "description": "A TypeScript-based tool for analyzing Angular projects, providing detailed counts and categorizations of components, directives, pipes, and services.",
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node dist/index.js"
