@@ -1,5 +1,5 @@
 import { textSync } from "figlet";
-import Table from "cli-table3"
+import Table from "cli-table3";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -75,6 +75,10 @@ function countAngularFeatures(
   return result;
 }
 
+function percentage(part: number, total: number): string {
+  return total > 0 ? ((part / total) * 100).toFixed(2) + "%" : "0%";
+}
+
 function printLogo() {
   console.log("");
   const logo = textSync("NG-Stats", {
@@ -86,32 +90,41 @@ function printResults(result: AngularFeatures) {
   console.log("Showing results for:", ANGULAR_PROJECT_PATH);
   // Set up the table with customized column widths, alignments, and header styles
   const table = new Table({
-    head: ["Type", "Total", "Standalone", "Not Standalone"],
-    colWidths: [40, 10, 15, 20],
-    colAligns: ["left", "center", "center", "center"],
+    head: ["Type", "Total", "Standalone", "Not Standalone", "Standalone %"],
+    colWidths: [40, 10, 15, 20, 15],
+    colAligns: ["left", "center", "center", "center", "center"],
   });
 
   // Add rows for each category
   table.push(
-    ["Modules", result.modules, "", ""],
-    ["Services (and other @Injectable)", result.services, "", ""],
+    ["Modules", result.modules, "", "", ""],
+    [
+      "Services (Including other @Injectable)",
+      result.services,
+      "",
+      "",
+      "",
+    ],
     [
       "Components",
       result.components.total,
       result.components.standalone,
       result.components.notStandalone,
+      percentage(result.components.standalone, result.components.total),
     ],
     [
       "Directives",
       result.directives.total,
       result.directives.standalone,
       result.directives.notStandalone,
+      percentage(result.directives.standalone, result.directives.total),
     ],
     [
       "Pipes",
       result.pipes.total,
       result.pipes.standalone,
       result.pipes.notStandalone,
+      percentage(result.pipes.standalone, result.pipes.total),
     ]
   );
 
