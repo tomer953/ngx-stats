@@ -5,6 +5,8 @@ export interface AngularFeatures {
     total: number;
     standalone: number;
     notStandalone: number;
+    onPush: number;
+    default: number;
   };
   directives: {
     total: number;

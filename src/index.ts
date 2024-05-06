@@ -19,7 +19,13 @@ function countAngularFeatures(
   result: AngularFeatures = {
     modules: 0,
     services: 0,
-    components: { total: 0, standalone: 0, notStandalone: 0 },
+    components: {
+      total: 0,
+      standalone: 0,
+      notStandalone: 0,
+      onPush: 0,
+      default: 0,
+    },
     directives: { total: 0, standalone: 0, notStandalone: 0 },
     pipes: { total: 0, standalone: 0, notStandalone: 0 },
   }
@@ -39,6 +45,13 @@ function countAngularFeatures(
           result.components.standalone++;
         } else {
           result.components.notStandalone++;
+        }
+        if (
+          content.includes("changeDetection: ChangeDetectionStrategy.OnPush")
+        ) {
+          result.components.onPush++;
+        } else {
+          result.components.default++;
         }
       }
       // Directives
@@ -90,27 +103,39 @@ function printResults(result: AngularFeatures) {
   console.log("Showing results for:", ANGULAR_PROJECT_PATH);
   // Set up the table with customized column widths, alignments, and header styles
   const table = new Table({
-    head: ["Type", "Total", "Standalone", "Not Standalone", "Standalone %"],
-    colWidths: [40, 10, 15, 20, 15],
-    colAligns: ["left", "center", "center", "center", "center"],
+    head: [
+      "Type",
+      "Total",
+      "Standalone",
+      "Not Standalone",
+      "Standalone %",
+      "OnPush Strategy",
+      "Default Strategy",
+    ],
+    colWidths: [40, 10, 15, 20, 15, 20, 20],
+    colAligns: [
+      "left",
+      "center",
+      "center",
+      "center",
+      "center",
+      "center",
+      "center",
+    ],
   });
 
   // Add rows for each category
   table.push(
     ["Modules", result.modules, "", "", ""],
-    [
-      "Services (Including other @Injectable)",
-      result.services,
-      "",
-      "",
-      "",
-    ],
+    ["Services (Including other @Injectable)", result.services, "", "", ""],
     [
       "Components",
       result.components.total,
       result.components.standalone,
       result.components.notStandalone,
       percentage(result.components.standalone, result.components.total),
+      result.components.onPush,
+      result.components.default
     ],
     [
       "Directives",
