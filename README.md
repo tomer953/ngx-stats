@@ -26,6 +26,11 @@ cd ng-stats
 npm install
 ```
 
+### Running the script
+
+1. open `src\index.ts` and modify `const ANGULAR_PROJECT_PATH = "/PATH_TO_ANGULAR_SRC_FOLDER";`
+2. `npm start`
+
 ### Demo
 
 ![image](https://github.com/tomer953/ng-stats/assets/1807493/04518537-9560-4c3b-ae6f-d5a7de42b8de)
