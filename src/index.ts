@@ -111,8 +111,9 @@ function printResults(result: AngularFeatures) {
       "Standalone %",
       "OnPush Strategy",
       "Default Strategy",
+      "OnPush %",
     ],
-    colWidths: [40, 10, 15, 20, 15, 20, 20],
+    colWidths: [40, 10, 15, 20, 15, 20, 20, 15],
     colAligns: [
       "left",
       "center",
@@ -135,7 +136,8 @@ function printResults(result: AngularFeatures) {
       result.components.notStandalone,
       percentage(result.components.standalone, result.components.total),
       result.components.onPush,
-      result.components.default
+      result.components.default,
+      percentage(result.components.onPush, result.components.total),
     ],
     [
       "Directives",
