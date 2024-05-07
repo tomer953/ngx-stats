@@ -17,26 +17,16 @@ Angular Project Analyzer is a tool that analyzes Angular projects. It counts the
 
 - Node.js
 
-### Installation
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/tomer953/ngx-stats.git
-cd ngx-stats
-npm install
-```
-
-Link the CLI tool:
-```bash
-npm link
-```
-
 ### Running the CLI tool
 
 To run the tool within any Angular project directory:
 ```bash
-ngx-stats
+npx ngx-stats
+```
+
+alternativly, you can install the package globally to avoid the `npx` preix:
+```bash
+npm i -g ngx-stats
 ```
 
 You can specify a different path or output the results in JSON format:
