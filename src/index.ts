@@ -124,7 +124,7 @@ function percentage(part: number, total: number): string {
 
 function printLogo() {
   console.log("");
-  const logo = textSync("NG-Stats", {
+  const logo = textSync("ngx-stats", {
     font: "ANSI Regular",
   });
   console.log(logo);
@@ -195,7 +195,7 @@ function printJson(result: AngularFeatures) {
 
 function printHelp() {
   console.log(`
-Usage: ng-stats [options]
+Usage: ngx-stats [options]
 
 Options:
 --help, -h    Display this help message.
@@ -204,11 +204,11 @@ Options:
               If not provided, outputs in table format.
 
 Examples:
-ng-stats --path /path/to/angular/project --json
-ng-stats -p /path/to/angular/project -j
-ng-stats --json
-ng-stats --help
-ng-stats -h
-ng-stats
+ngx-stats --path /path/to/angular/project --json
+ngx-stats -p /path/to/angular/project -j
+ngx-stats --json
+ngx-stats --help
+ngx-stats -h
+ngx-stats
   `);
 }

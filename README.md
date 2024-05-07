@@ -1,4 +1,4 @@
-# NG-STATS - Angular Project Analyzer
+# ngx-stats - Angular Project Analyzer
 
 ## Overview
 
@@ -22,8 +22,8 @@ Angular Project Analyzer is a tool that analyzes Angular projects. It counts the
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/tomer953/ng-stats.git
-cd ng-stats
+git clone https://github.com/tomer953/ngx-stats.git
+cd ngx-stats
 npm install
 ```
 
@@ -36,34 +36,34 @@ npm link
 
 To run the tool within any Angular project directory:
 ```bash
-ng-stats
+ngx-stats
 ```
 
 You can specify a different path or output the results in JSON format:
 ```bash
 # Run analysis on a specific path
-ng-stats --path path/to/angular/project
+ngx-stats --path path/to/angular/project
 
 # Output results in JSON format
-ng-stats --json
+ngx-stats --json
 
 # Combine path specification and JSON output
-ng-stats --path path/to/angular/project --json
+ngx-stats --path path/to/angular/project --json
 ```
 
 ### Help
 
 For detailed usage instructions, use the help option:
 ```bash
-ng-stats --help
+ngx-stats --help
 ```
 
 or
 
 ```bash
-ng-stats -h
+ngx-stats -h
 ```
 
 ### Demo
 
-![image](https://github.com/tomer953/ng-stats/assets/1807493/04518537-9560-4c3b-ae6f-d5a7de42b8de)
+![image](https://github.com/tomer953/ngx-stats/assets/1807493/04518537-9560-4c3b-ae6f-d5a7de42b8de)

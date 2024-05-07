@@ -1,16 +1,23 @@
 {
-  "name": "ng-stats",
-  "version": "1.0.0",
+  "name": "ngx-stats",
+  "version": "0.1.0",
   "description": "A TypeScript-based tool for analyzing Angular projects, providing detailed counts and categorizations of components, directives, pipes, and services.",
   "main": "dist/index.js",
   "bin": {
-    "ng-stats": "./dist/index.js"
+    "ngx-stats": "./dist/index.js"
   },
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "homepage": "https://github.com/tomer953/ngx-stats",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomer953/ngx-stats.git"
   },
   "keywords": [
+    "cli",
     "angular"
   ],
   "author": "tomer953",
