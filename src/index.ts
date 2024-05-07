@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { textSync } from "figlet";
 import Table from "cli-table3";
 import * as fs from "fs";
@@ -5,14 +7,24 @@ import * as path from "path";
 
 import { AngularFeatures } from "./types";
 
-const ANGULAR_PROJECT_PATH = "/PATH_TO_ANGULAR_SRC_FOLDER";
+const ANGULAR_PROJECT_PATH = process.cwd();
 const filesToCheck = [".ts"];
 
 (function main() {
+  checkAngularProject();
   const result = countAngularFeatures(ANGULAR_PROJECT_PATH);
   printLogo();
   printResults(result);
 })();
+
+function checkAngularProject() {
+  const angularJsonPath = path.join(ANGULAR_PROJECT_PATH, 'angular.json');
+
+  if (!fs.existsSync(angularJsonPath)) {
+    console.error("Error: No angular.json found in this directory."),
+    process.exit(1);
+  }
+}
 
 function countAngularFeatures(
   dirPath: string,
