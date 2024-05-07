@@ -26,10 +26,15 @@ cd ng-stats
 npm install
 ```
 
-### Running the script
+Link the CLI tool:
+```
+npm link
+```
 
-1. open `src\index.ts` and modify `const ANGULAR_PROJECT_PATH = "/PATH_TO_ANGULAR_SRC_FOLDER";`
-2. `npm start`
+### Running the CLI tool
+
+1. open any angular project that contain the `angular.json` file
+2. `ng-stats`
 
 ### Demo
 
