@@ -14,6 +14,7 @@ Angular Project Analyzer is a tool that analyzes Angular projects. It counts the
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js
 
 ### Installation
@@ -26,10 +27,42 @@ cd ng-stats
 npm install
 ```
 
-### Running the script
+Link the CLI tool:
+```bash
+npm link
+```
 
-1. open `src\index.ts` and modify `const ANGULAR_PROJECT_PATH = "/PATH_TO_ANGULAR_SRC_FOLDER";`
-2. `npm start`
+### Running the CLI tool
+
+To run the tool within any Angular project directory:
+```bash
+ng-stats
+```
+
+You can specify a different path or output the results in JSON format:
+```bash
+# Run analysis on a specific path
+ng-stats --path path/to/angular/project
+
+# Output results in JSON format
+ng-stats --json
+
+# Combine path specification and JSON output
+ng-stats --path path/to/angular/project --json
+```
+
+### Help
+
+For detailed usage instructions, use the help option:
+```bash
+ng-stats --help
+```
+
+or
+
+```bash
+ng-stats -h
+```
 
 ### Demo
 

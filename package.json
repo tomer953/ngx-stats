@@ -3,18 +3,26 @@
   "version": "1.0.0",
   "description": "A TypeScript-based tool for analyzing Angular projects, providing detailed counts and categorizations of components, directives, pipes, and services.",
   "main": "dist/index.js",
-  "scripts": {
-    "start": "tsc && node dist/index.js"
+  "bin": {
+    "ng-stats": "./dist/index.js"
   },
-  "keywords": ["angular"],
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "build": "tsc"
+  },
+  "keywords": [
+    "angular"
+  ],
   "author": "tomer953",
   "license": "MIT",
   "dependencies": {
     "cli-table3": "^0.6.4",
-    "figlet": "^1.7.0"
+    "figlet": "^1.7.0",
+    "minimist": "^1.2.8"
   },
   "devDependencies": {
     "@types/figlet": "^1.5.8",
+    "@types/minimist": "^1.2.5",
     "@types/node": "^20.12.10",
     "typescript": "^5.4.5"
   }

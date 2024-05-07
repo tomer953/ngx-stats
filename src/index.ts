@@ -1,17 +1,45 @@
+#!/usr/bin/env node
+
 import { textSync } from "figlet";
 import Table from "cli-table3";
 import * as fs from "fs";
 import * as path from "path";
+import minimist from "minimist";
 
 import { AngularFeatures } from "./types";
 
-const ANGULAR_PROJECT_PATH = "/PATH_TO_ANGULAR_SRC_FOLDER";
+const argv = minimist(process.argv.slice(2), {
+  string: ["path"],
+  boolean: ["json", "help"],
+  alias: { p: "path", j: "json", h: "help" },
+  unknown: (arg) => {
+      console.error(`Unknown option: ${arg}`);
+      printHelp();
+      process.exit(1);
+  }
+});
+
+if (argv.help) {
+  printHelp();
+  process.exit(0);
+}
+
+const angularProjectPath = argv.path ? path.resolve(argv.path) : process.cwd();
 const filesToCheck = [".ts"];
 
+if (!fs.existsSync(angularProjectPath) || !fs.statSync(angularProjectPath).isDirectory()) {
+  console.error(`Error: The specified path '${angularProjectPath}' does not exist or is not a directory.`);
+  process.exit(1);
+}
+
 (function main() {
-  const result = countAngularFeatures(ANGULAR_PROJECT_PATH);
-  printLogo();
-  printResults(result);
+  const result = countAngularFeatures(angularProjectPath);
+  if (argv.json) {
+    printJson(result);
+  } else {
+    printLogo();
+    printResults(result);
+  }
 })();
 
 function countAngularFeatures(
@@ -102,7 +130,7 @@ function printLogo() {
   console.log(logo);
 }
 function printResults(result: AngularFeatures) {
-  console.log("Showing results for:", ANGULAR_PROJECT_PATH);
+  console.log("Showing results for:", angularProjectPath);
   // Set up the table with customized column widths, alignments, and header styles
   const table = new Table({
     head: [
@@ -159,4 +187,28 @@ function printResults(result: AngularFeatures) {
 
   // Print the table to the console
   console.log(table.toString());
+}
+
+function printJson(result: AngularFeatures) {
+  console.log(JSON.stringify(result, null, 2));
+}
+
+function printHelp() {
+  console.log(`
+Usage: ng-stats [options]
+
+Options:
+--help, -h    Display this help message.
+--path, -p    Specify the path to the Angular project directory.
+--json, -j    Output the results in JSON format.
+              If not provided, outputs in table format.
+
+Examples:
+ng-stats --path /path/to/angular/project --json
+ng-stats -p /path/to/angular/project -j
+ng-stats --json
+ng-stats --help
+ng-stats -h
+ng-stats
+  `);
 }
