@@ -1,6 +1,6 @@
 {
   "name": "ngx-stats",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A TypeScript-based tool for analyzing Angular projects, providing detailed counts and categorizations of components, directives, pipes, and services.",
   "main": "dist/index.js",
   "bin": {
