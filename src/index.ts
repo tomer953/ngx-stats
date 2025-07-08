@@ -31,6 +31,9 @@ if (!argv.legacy) {
 const angularProjectPath = argv.path ? path.resolve(argv.path) : process.cwd();
 const filesToCheck = [".ts"];
 
+const IGNORE_DIRS = new Set(["node_modules", "dist", "build", "cache"]);
+const IGNORE_FILE_PATTERNS = [".stories.ts", ".spec.ts"];
+
 if (
   !fs.existsSync(angularProjectPath) ||
   !fs.statSync(angularProjectPath).isDirectory()
@@ -79,10 +82,13 @@ function countAngularFeatures(
     const filePath = path.join(dirPath, file);
     const stats = fs.statSync(filePath);
     if (stats.isDirectory()) {
-      if (file !== "node_modules") {
+      if (!shouldIgnoreDir(file)) {
         countAngularFeatures(filePath, result);
       }
-    } else if (filesToCheck.includes(path.extname(file))) {
+    } else if (
+      filesToCheck.includes(path.extname(file)) &&
+      !shouldIgnoreFile(file)
+    ) {
       const content = fs.readFileSync(filePath, "utf8");
       // Components
       if (content.includes("@Component")) {
@@ -132,6 +138,14 @@ function countAngularFeatures(
     }
   });
   return result;
+}
+
+function shouldIgnoreDir(dirName: string): boolean {
+  return IGNORE_DIRS.has(dirName) || dirName.startsWith(".");
+}
+
+function shouldIgnoreFile(fileName: string): boolean {
+  return IGNORE_FILE_PATTERNS.some((pattern) => fileName.endsWith(pattern));
 }
 
 function percentage(part: number, total: number): string {
