@@ -2,19 +2,28 @@
 
 ## Overview
 
-Angular Project Analyzer is a tool that analyzes Angular projects. It counts the number of modules, components, directives, pipes, and services, including distinctions between standalone and non-standalone components and directives. This utility helps developers gain insights into the structure and complexity of their Angular applications.
+**ngx-stats** is a CLI tool that analyzes Angular projects. It counts the number of modules, components, directives, pipes, and services — including distinctions between:
 
-## Getting Started
+- Standalone vs. non-standalone declarations
+- OnPush vs. Default change detection
 
-### How to use
+This utility helps developers understand the structure and architectural patterns of their Angular applications.
+
+---
+
+## 📦 Installation
 
 Install globally:
 
 ```bash
 npm i -g ngx-stats
-```
+````
 
-then write in any angular project directory:
+---
+
+## 🚀 Usage
+
+In any Angular project directory:
 
 ```bash
 ngx-stats
@@ -22,14 +31,23 @@ ngx-stats
 
 ![image](https://github.com/tomer953/ngx-stats/assets/1807493/603d01c7-2def-433f-b802-fbee60481dba)
 
+---
 
-## Specify a different path
+### 📁 Analyze a Specific Path
+
 ```bash
-# Run analysis on a specific path
 ngx-stats --path path/to/angular/project
 ```
 
-## Output results in JSON format
+or shorthand:
+
+```bash
+ngx-stats -p ./apps/admin
+```
+
+---
+
+### 🧮 Output Results in JSON
 
 ```bash
 ngx-stats --json
@@ -59,13 +77,61 @@ ngx-stats --json
 }
 ```
 
-## Help
+---
 
-For detailed usage instructions, use the help option:
+### 🔙 Legacy Mode (for Angular v14–v18)
+
+Angular v19+ treats components/directives/pipes as **standalone by default**.
+
+To use legacy detection logic (`standalone: true`), add:
+
 ```bash
-ngx-stats --help
-ngx-stats -h
+ngx-stats --legacy
 ```
 
+or:
 
+```bash
+ngx-stats -l
+```
+
+---
+
+## 🧼 Ignored Files and Folders
+
+The following are **excluded by default**:
+
+### 📂 Ignored directories:
+
+* `node_modules`
+* `dist`
+* `build`
+* `cache`
+* `.nx`
+* `.angular`
+* Any directory that starts with a `.`
+
+### 📄 Ignored files:
+
+* Files ending in `.stories.ts`
+* Files ending in `.spec.ts`
+
+---
+
+## 🆘 Help
+
+```bash
+ngx-stats --help
+```
+
+---
+
+## 🔧 CLI Options Summary
+
+| Option     | Alias | Description                           |
+| ---------- | ----- | ------------------------------------- |
+| `--path`   | `-p`  | Specify target directory to scan      |
+| `--json`   | `-j`  | Output result as JSON                 |
+| `--legacy` | `-l`  | Use legacy detection (pre-Angular 19) |
+| `--help`   | `-h`  | Show usage info                       |
 
