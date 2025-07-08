@@ -10,25 +10,34 @@ import { AngularFeatures } from "./types";
 
 const argv = minimist(process.argv.slice(2), {
   string: ["path"],
-  boolean: ["json", "help"],
-  alias: { p: "path", j: "json", h: "help" },
+  boolean: ["json", "help", "legacy"],
+  alias: { p: "path", j: "json", h: "help", l: "legacy" },
   unknown: (arg) => {
-      console.error(`Unknown option: ${arg}`);
-      printHelp();
-      process.exit(1);
-  }
+    console.error(`Unknown option: ${arg}`);
+    printHelp();
+    process.exit(1);
+  },
 });
 
 if (argv.help) {
   printHelp();
   process.exit(0);
 }
-
+if (!argv.legacy) {
+  console.log(
+    "ℹ️  Assuming Angular v19+ (standalone by default). Use --legacy for v14-v18 behavior."
+  );
+}
 const angularProjectPath = argv.path ? path.resolve(argv.path) : process.cwd();
 const filesToCheck = [".ts"];
 
-if (!fs.existsSync(angularProjectPath) || !fs.statSync(angularProjectPath).isDirectory()) {
-  console.error(`Error: The specified path '${angularProjectPath}' does not exist or is not a directory.`);
+if (
+  !fs.existsSync(angularProjectPath) ||
+  !fs.statSync(angularProjectPath).isDirectory()
+) {
+  console.error(
+    `Error: The specified path '${angularProjectPath}' does not exist or is not a directory.`
+  );
   process.exit(1);
 }
 
@@ -41,6 +50,13 @@ if (!fs.existsSync(angularProjectPath) || !fs.statSync(angularProjectPath).isDir
     printResults(result);
   }
 })();
+
+function isStandalone(content: string, legacy: boolean): boolean {
+  if (legacy) {
+    return content.includes("standalone: true");
+  }
+  return !content.includes("standalone: false");
+}
 
 function countAngularFeatures(
   dirPath: string,
@@ -71,7 +87,7 @@ function countAngularFeatures(
       // Components
       if (content.includes("@Component")) {
         result.components.total++;
-        if (content.includes("standalone: true")) {
+        if (isStandalone(content, argv.legacy)) {
           result.components.standalone++;
         } else {
           result.components.notStandalone++;
@@ -87,7 +103,7 @@ function countAngularFeatures(
       // Directives
       if (content.includes("@Directive")) {
         result.directives.total++;
-        if (content.includes("standalone: true")) {
+        if (isStandalone(content, argv.legacy)) {
           result.directives.standalone++;
         } else {
           result.directives.notStandalone++;
@@ -96,7 +112,7 @@ function countAngularFeatures(
       // Pipes
       if (content.includes("@Pipe")) {
         result.pipes.total++;
-        if (content.includes("standalone: true")) {
+        if (isStandalone(content, argv.legacy)) {
           result.pipes.standalone++;
         } else {
           result.pipes.notStandalone++;
@@ -198,17 +214,13 @@ function printHelp() {
 Usage: ngx-stats [options]
 
 Options:
---help, -h    Display this help message.
---path, -p    Specify the path to the Angular project directory.
---json, -j    Output the results in JSON format.
-              If not provided, outputs in table format.
+--help, -h     Display this help message.
+--path, -p     Specify the path to the Angular project directory.
+--json, -j     Output the results in JSON format.
+--legacy, -l   Use legacy detection (pre-v19: looks for standalone: true)
 
 Examples:
-ngx-stats --path /path/to/angular/project --json
-ngx-stats -p /path/to/angular/project -j
-ngx-stats --json
-ngx-stats --help
-ngx-stats -h
-ngx-stats
+ngx-stats --path ./ --json
+ngx-stats -p ./src -l
   `);
 }
