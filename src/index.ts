@@ -182,6 +182,7 @@ function printResults(result: AngularFeatures) {
       "center",
       "center",
       "center",
+      "center",
     ],
   });
 
