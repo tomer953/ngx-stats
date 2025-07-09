@@ -10,8 +10,8 @@ import { AngularFeatures } from "./types";
 
 const argv = minimist(process.argv.slice(2), {
   string: ["path"],
-  boolean: ["json", "help", "legacy"],
-  alias: { p: "path", j: "json", h: "help", l: "legacy" },
+  boolean: ["json", "help", "legacy", "verbose"],
+  alias: { p: "path", j: "json", h: "help", l: "legacy", v: "verbose" },
   unknown: (arg) => {
     console.error(`Unknown option: ${arg}`);
     printHelp();
@@ -97,6 +97,8 @@ function countAngularFeatures(
           result.components.standalone++;
         } else {
           result.components.notStandalone++;
+          if (argv.verbose)
+            console.log(`[non-standalone component] ${filePath}`);
         }
         if (
           content.includes("changeDetection: ChangeDetectionStrategy.OnPush")
@@ -104,6 +106,8 @@ function countAngularFeatures(
           result.components.onPush++;
         } else {
           result.components.default++;
+          if (argv.verbose)
+            console.log(`[default change detection] ${filePath}`);
         }
       }
       // Directives
@@ -113,6 +117,8 @@ function countAngularFeatures(
           result.directives.standalone++;
         } else {
           result.directives.notStandalone++;
+          if (argv.verbose)
+            console.log(`[non-standalone directive] ${filePath}`);
         }
       }
       // Pipes
@@ -122,11 +128,13 @@ function countAngularFeatures(
           result.pipes.standalone++;
         } else {
           result.pipes.notStandalone++;
+          if (argv.verbose) console.log(`[non-standalone pipe] ${filePath}`);
         }
       }
       // Modules
       if (content.includes("@NgModule")) {
         result.modules++;
+        if (argv.verbose) console.log(`[NgModule] ${filePath}`);
       }
       // Services
       if (
@@ -229,13 +237,14 @@ function printHelp() {
 Usage: ngx-stats [options]
 
 Options:
---help, -h     Display this help message.
---path, -p     Specify the path to the Angular project directory.
---json, -j     Output the results in JSON format.
---legacy, -l   Use legacy detection (pre-v19: looks for standalone: true)
+--help, -h      Display this help message.
+--path, -p      Specify the path to the Angular project directory.
+--json, -j      Output the results in JSON format.
+--legacy, -l    Use legacy detection (pre-v19: looks for standalone: true)
+--verbose, -v   Print paths for modules, default-strategy components, and non-standalone declarations
 
 Examples:
 ngx-stats --path ./ --json
-ngx-stats -p ./src -l
+ngx-stats -p ./src -l -v
   `);
 }

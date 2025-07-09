@@ -128,10 +128,12 @@ ngx-stats --help
 
 ## 🔧 CLI Options Summary
 
-| Option     | Alias | Description                           |
-| ---------- | ----- | ------------------------------------- |
-| `--path`   | `-p`  | Specify target directory to scan      |
-| `--json`   | `-j`  | Output result as JSON                 |
-| `--legacy` | `-l`  | Use legacy detection (pre-Angular 19) |
-| `--help`   | `-h`  | Show usage info                       |
+| Option      | Alias | Description                                                                 |
+| ----------- | ----- | --------------------------------------------------------------------------- |
+| `--path`    | `-p`  | Specify target directory to scan                                            |
+| `--json`    | `-j`  | Output result as JSON                                                       |
+| `--legacy`  | `-l`  | Use legacy detection logic (Angular v14–v18: looks for `standalone: true`)  |
+| `--verbose` | `-v`  | Print file paths of: NgModules, non-standalone declarations, and non-OnPush |
+| `--help`    | `-h`  | Show usage info                                                             |
+
 
