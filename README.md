@@ -115,6 +115,7 @@ The following are **excluded by default**:
 
 * Files ending in `.stories.ts`
 * Files ending in `.spec.ts`
+* Files ending in `.d.ts`
 
 ---
 
