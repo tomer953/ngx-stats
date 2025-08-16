@@ -29,7 +29,8 @@ In any Angular project directory:
 ngx-stats
 ```
 
-![image](https://github.com/tomer953/ngx-stats/assets/1807493/603d01c7-2def-433f-b802-fbee60481dba)
+<img width="2492" height="1610" alt="image" src="https://github.com/user-attachments/assets/f722c8ed-d48b-4668-ac2b-d2b4ee0a5116" />
+
 
 ---
 
